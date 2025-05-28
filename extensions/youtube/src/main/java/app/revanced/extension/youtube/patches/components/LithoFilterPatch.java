@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.settings.BaseSettings;
 import app.revanced.extension.youtube.StringTrieSearch;
 import app.revanced.extension.youtube.settings.Settings;
 
@@ -87,6 +88,10 @@ public final class LithoFilterPatch {
      * the buffer is saved to a ThreadLocal so each calling thread does not interfere with other threads.
      */
     private static final ThreadLocal<ByteBuffer> bufferThreadLocal = new ThreadLocal<>();
+    /**
+     * Results of calling {@link #filter(String, StringBuilder)}.
+     */
+    private static final ThreadLocal<Boolean> filterResult = new ThreadLocal<>();
 
     static {
         for (Filter filter : filters) {
@@ -110,12 +115,29 @@ public final class LithoFilterPatch {
             if (!group.includeInSearch()) {
                 continue;
             }
+
             for (String pattern : group.filters) {
-                pathSearchTree.addPattern(pattern, (textSearched, matchedStartIndex, matchedLength, callbackParameter) -> {
+                String filterSimpleName = filter.getClass().getSimpleName();
+
+                pathSearchTree.addPattern(pattern, (textSearched, matchedStartIndex,
+                                                    matchedLength, callbackParameter) -> {
                             if (!group.isEnabled()) return false;
+
                             LithoFilterParameters parameters = (LithoFilterParameters) callbackParameter;
-                            return filter.isFiltered(parameters.identifier, parameters.path, parameters.protoBuffer,
-                                    group, type, matchedStartIndex);
+                            final boolean isFiltered = filter.isFiltered(parameters.identifier,
+                                    parameters.path, parameters.protoBuffer, group, type, matchedStartIndex);
+
+                            if (isFiltered && BaseSettings.DEBUG.get()) {
+                                if (type == Filter.FilterContentType.IDENTIFIER) {
+                                    Logger.printDebug(() -> "Filtered " + filterSimpleName
+                                            + " identifier: " + parameters.identifier);
+                                } else {
+                                    Logger.printDebug(() -> "Filtered " + filterSimpleName
+                                            + " path: " + parameters.path);
+                                }
+                            }
+
+                            return isFiltered;
                         }
                 );
             }
@@ -141,10 +163,21 @@ public final class LithoFilterPatch {
     }
 
     /**
+     * Injection point.
+     */
+    public static boolean shouldFilter() {
+        Boolean shouldFilter = filterResult.get();
+        return shouldFilter != null && shouldFilter;
+    }
+
+    /**
      * Injection point.  Called off the main thread, and commonly called by multiple threads at the same time.
      */
-    @SuppressWarnings("unused")
-    public static boolean filter(@Nullable String lithoIdentifier, @NonNull StringBuilder pathBuilder) {
+    public static void filter(@Nullable String lithoIdentifier, StringBuilder pathBuilder) {
+        filterResult.set(handleFiltering(lithoIdentifier, pathBuilder));
+    }
+
+    private static boolean handleFiltering(@Nullable String lithoIdentifier, StringBuilder pathBuilder) {
         try {
             if (pathBuilder.length() == 0) {
                 return false;

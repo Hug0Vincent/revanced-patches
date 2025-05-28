@@ -42,6 +42,10 @@ Second \"item\" text"</string>
             <string name="revanced_settings_import_reset">ReVanced settings reset to default</string>
             <string name="revanced_settings_import_success">Imported %d settings</string>
             <string name="revanced_settings_import_failure_parse">Import failed: %s</string>
+            <string name="revanced_settings_search_hint">Search settings</string>
+            <string name="revanced_settings_search_no_results_title">No results found for \'%s\'</string>
+            <string name="revanced_settings_search_no_results_summary">Try another keyword</string>
+            <string name="revanced_settings_search_remove_message">Remove from search history?</string>
             <string name="revanced_show_menu_icons_title">Show ReVanced setting icons</string>
             <string name="revanced_show_menu_icons_summary_on">Setting icons are shown</string>
             <string name="revanced_show_menu_icons_summary_off">Setting icons are not shown</string>
@@ -145,11 +149,15 @@ Tap the continue button and allow optimization changes."</string>
             <string name="revanced_settings_screen_06_shorts_title">Shorts</string>
             <string name="revanced_settings_screen_07_seekbar_title">Seekbar</string>
             <string name="revanced_settings_screen_08_swipe_controls_title">Swipe controls</string>
+            <string name="revanced_settings_screen_09_return_youtube_dislike_title" translatable="false">Return YouTube Dislike</string>
             <string name="revanced_settings_screen_11_misc_title">Miscellaneous</string>
             <string name="revanced_settings_screen_12_video_title">Video</string>
             <string name="revanced_restore_old_settings_menus_title">Restore old settings menus</string>
             <string name="revanced_restore_old_settings_menus_summary_on">Old settings menus are shown</string>
             <string name="revanced_restore_old_settings_menus_summary_off">Old settings menus are not shown</string>
+            <string name="revanced_settings_search_history_title">Show settings search history</string>
+            <string name="revanced_settings_search_history_summary_on">Settings search history is shown</string>
+            <string name="revanced_settings_search_history_summary_off">Settings search history is not shown</string>
         </patch>
         <patch id="misc.backgroundplayback.backgroundPlaybackPatch">
             <string name="revanced_shorts_disable_background_playback_title">Disable Shorts background play</string>
@@ -210,15 +218,18 @@ You will not be notified of any unexpected events."</string>
             <string name="revanced_hide_notify_me_button_title">Hide \'Notify me\' button</string>
             <string name="revanced_hide_notify_me_button_summary_on">Button is hidden</string>
             <string name="revanced_hide_notify_me_button_summary_off">Button is shown</string>
-            <!-- 'People also watched' should be translated using the same localized wording YouTube displays. -->
-            <string name="revanced_hide_search_result_recommendations_title">Hide \'People also watched\' label</string>
-            <string name="revanced_hide_search_result_recommendations_summary_on">Label is hidden</string>
-            <string name="revanced_hide_search_result_recommendations_summary_off">Label is shown</string>
+            <!-- 'People also watched' and 'You might also like' should be translated using the same localized wording YouTube displays. -->
+            <string name="revanced_hide_search_result_recommendation_labels_title">Hide video recommendation labels</string>
+            <string name="revanced_hide_search_result_recommendation_labels_summary_on">\'People also watched\' and \'You might also like\' labels are hidden</string>
+            <string name="revanced_hide_search_result_recommendation_labels_summary_off">\'People also watched\' and \'You might also like\' labels are shown</string>
             <!-- 'Show more' should be translated with the same localized wording that YouTube displays.
                   This button usually appears when searching for a YT creator. -->
             <string name="revanced_hide_show_more_button_title">Hide \'Show more\' button</string>
             <string name="revanced_hide_show_more_button_summary_on">Button is hidden</string>
             <string name="revanced_hide_show_more_button_summary_off">Button is shown</string>
+            <string name="revanced_hide_ticket_shelf_title">Hide ticket shelf</string>
+            <string name="revanced_hide_ticket_shelf_summary_on">Ticket shelf is hidden</string>
+            <string name="revanced_hide_ticket_shelf_summary_off">Ticket shelf is shown</string>
             <string name="revanced_hide_timed_reactions_title">Hide timed reactions</string>
             <string name="revanced_hide_timed_reactions_summary_on">Timed reactions are hidden</string>
             <string name="revanced_hide_timed_reactions_summary_off">Timed reactions are shown</string>
@@ -288,6 +299,9 @@ You will not be notified of any unexpected events."</string>
             <string name="revanced_hide_ai_generated_video_summary_section_title">Hide \'AI-generated video summary\'</string>
             <string name="revanced_hide_ai_generated_video_summary_section_summary_on">Video summary section is hidden</string>
             <string name="revanced_hide_ai_generated_video_summary_section_summary_off">Video summary section is shown</string>
+            <string name="revanced_hide_ask_section_title">Hide Ask</string>
+            <string name="revanced_hide_ask_section_summary_on">Ask section is hidden</string>
+            <string name="revanced_hide_ask_section_summary_off">Ask section is shown</string>
             <string name="revanced_hide_attributes_section_title">Hide Attributes</string>
             <string name="revanced_hide_attributes_section_summary_on">Featured places, Games, Music, and People mentioned sections are hidden</string>
             <string name="revanced_hide_attributes_section_summary_off">Featured places, Games, Music, and People mentioned sections are shown</string>
@@ -520,29 +534,38 @@ Adjust volume by swiping vertically on the right side of the screen"</string>
             <string name="revanced_swipe_lowest_value_enable_auto_brightness_title">Enable auto-brightness gesture</string>
             <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_on">Swiping down to the lowest value of the brightness gesture enable auto-brightness</string>
             <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_off">Swiping down to the lowest value does not enable auto-brightness</string>
+            <string name="revanced_swipe_lowest_value_enable_auto_brightness_overlay_text">Auto</string>
             <string name="revanced_swipe_overlay_timeout_title">Swipe overlay timeout</string>
             <string name="revanced_swipe_overlay_timeout_summary">The amount of milliseconds the overlay is visible</string>
             <string name="revanced_swipe_overlay_background_opacity_title">Swipe overlay background opacity</string>
             <string name="revanced_swipe_overlay_background_opacity_summary">Opacity value between 0-100</string>
             <string name="revanced_swipe_overlay_background_opacity_invalid_toast">Swipe opacity must be between 0-100</string>
+            <string name="revanced_swipe_overlay_progress_color_title">Swipe overlay progress bar color</string>
+            <string name="revanced_swipe_overlay_progress_color_summary">The color of the progress bar for volume and brightness controls</string>
+            <string name="revanced_swipe_overlay_progress_color_invalid_toast">Invalid progress bar color</string>
+            <string name="revanced_swipe_text_overlay_size_title">Swipe overlay text size</string>
+            <string name="revanced_swipe_text_overlay_size_summary">The text size for swipe overlay between 1-30</string>
+            <string name="revanced_swipe_text_overlay_size_invalid_toast">The text size must be between 1-30</string>
             <string name="revanced_swipe_threshold_title">Swipe magnitude threshold</string>
             <string name="revanced_swipe_threshold_summary">The amount of threshold for swipe to occur</string>
             <string name="revanced_swipe_volume_sensitivity_title">Volume swipe sensitivity</string>
             <string name="revanced_swipe_volume_sensitivity_summary">How much the volume changes per swipe</string>
-            <string name="revanced_swipe_show_circular_overlay_title">Show circular overlay</string>
-            <string name="revanced_swipe_show_circular_overlay_summary_on">Circular overlay is shown</string>
-            <string name="revanced_swipe_show_circular_overlay_summary_off">Horizontal overlay is shown</string>
-            <string name="revanced_swipe_overlay_minimal_style_title">Enable minimal style</string>
-            <string name="revanced_swipe_overlay_minimal_style_summary_on">Minimal overlay style is enabled</string>
-            <string name="revanced_swipe_overlay_minimal_style_summary_off">Minimal overlay style is disabled</string>
+            <string name="revanced_swipe_overlay_style_title">Swipe overlay style</string>
+            <string name="revanced_swipe_overlay_style_entry_1">Horizontal overlay</string>
+            <string name="revanced_swipe_overlay_style_entry_2">Horizontal overlay (minimal - top)</string>
+            <string name="revanced_swipe_overlay_style_entry_3">Horizontal overlay (minimal - center)</string>
+            <string name="revanced_swipe_overlay_style_entry_4">Circular overlay</string>
+            <string name="revanced_swipe_overlay_style_entry_5">Circular overlay (minimal)</string>
+            <string name="revanced_swipe_overlay_style_entry_6">Vertical overlay</string>
+            <string name="revanced_swipe_overlay_style_entry_7">Vertical overlay (minimal)</string>
             <string name="revanced_swipe_change_video_title">Enable swipe to change videos</string>
             <string name="revanced_swipe_change_video_summary_on">Swiping in fullscreen mode will change to the next/previous video</string>
             <string name="revanced_swipe_change_video_summary_off">Swiping in fullscreen mode will not change to the next/previous video</string>
         </patch>
         <patch id="layout.autocaptions.autoCaptionsPatch">
-            <string name="revanced_auto_captions_title">Disable auto captions</string>
-            <string name="revanced_auto_captions_summary_on">Auto captions are disabled</string>
-            <string name="revanced_auto_captions_summary_off">Auto captions are enabled</string>
+            <string name="revanced_disable_auto_captions_title">Disable auto captions</string>
+            <string name="revanced_disable_auto_captions_summary_on">Auto captions are disabled</string>
+            <string name="revanced_disable_auto_captions_summary_off">Auto captions are enabled</string>
         </patch>
         <patch id="layout.buttons.action.hideButtonsPatch">
             <string name="revanced_hide_buttons_screen_title">Action buttons</string>
@@ -574,6 +597,11 @@ Adjust volume by swiping vertically on the right side of the screen"</string>
             <string name="revanced_hide_thanks_button_title">Hide Thanks</string>
             <string name="revanced_hide_thanks_button_summary_on">Thanks button is hidden</string>
             <string name="revanced_hide_thanks_button_summary_off">Thanks button is shown</string>
+            <!-- 'Ask' should be translated with the same localized wording that YouTube displays.
+                 Button only shows if the user ip is from specific region such as the USA or EU. -->
+            <string name="revanced_hide_ask_button_title">Hide Ask</string>
+            <string name="revanced_hide_ask_button_summary_on">Ask button is hidden</string>
+            <string name="revanced_hide_ask_button_summary_off">Ask button is shown</string>
             <!-- 'Clip' should be translated with the same localized wording that YouTube displays. -->
             <string name="revanced_hide_clip_button_title">Hide Clip</string>
             <string name="revanced_hide_clip_button_summary_on">Clip button is hidden</string>
@@ -841,6 +869,11 @@ Autoplay can be changed in YouTube settings:
 Settings → Playback → Autoplay next video"</string>
             <string name="revanced_end_screen_suggested_video_summary_off">End screen suggested video is shown</string>
         </patch>
+        <patch id="layout.hide.relatedvideooverlay.hideRelatedVideoOverlayPatch">
+            <string name="revanced_hide_related_video_overlay_title">Hide related video overlay in fullscreen</string>
+            <string name="revanced_hide_related_video_overlay_summary_on">Related video overlay is hidden</string>
+            <string name="revanced_hide_related_video_overlay_summary_off">Related video overlay is shown</string>
+        </patch>
         <patch id="layout.hide.time.hideTimestampPatch">
             <string name="revanced_hide_timestamp_title">Hide video timestamp</string>
             <string name="revanced_hide_timestamp_summary_on">Timestamp is hidden</string>
@@ -869,7 +902,6 @@ Settings → Playback → Autoplay next video"</string>
             <string name="revanced_player_overlay_opacity_invalid_toast">Player overlay opacity must be between 0-100</string>
         </patch>
         <patch id="layout.returnyoutubedislike.returnYouTubeDislikePatch">
-            <string name="revanced_ryd_settings_title" translatable="false">Return YouTube Dislike</string>
             <!-- Toast shown if network connection times out. Translations of this should not be longer than the original English or the text can be clipped and not entirely shown. -->
             <string name="revanced_ryd_failure_connection_timeout">Dislikes are temporarily not available (API timed out)</string>
             <string name="revanced_ryd_failure_connection_status_code">Dislikes are not available (status %d)</string>
@@ -879,11 +911,11 @@ Settings → Playback → Autoplay next video"</string>
             <string name="revanced_ryd_failure_ryd_enabled_while_playing_video_then_user_voted">Reload video to vote using Return YouTube Dislike</string>
             <!-- Video likes have been set to hidden by the video uploader. -->
             <string name="revanced_ryd_video_likes_hidden_by_video_owner">Hidden by owner</string>
-            <string name="revanced_ryd_enable_title" translatable="false">Return YouTube Dislike</string>
-            <string name="revanced_ryd_enable_summary_on">Dislikes are shown</string>
-            <string name="revanced_ryd_enable_summary_off">Dislikes are not shown</string>
+            <string name="revanced_ryd_enabled_title" translatable="false">Return YouTube Dislike</string>
+            <string name="revanced_ryd_enabled_summary_on">Dislikes are shown</string>
+            <string name="revanced_ryd_enabled_summary_off">Dislikes are not shown</string>
             <string name="revanced_ryd_shorts_title">Show dislikes on Shorts</string>
-            <string name="revanced_ryd_shorts_summary_on_disclaimer">"Dislikes on Shorts are shown
+            <string name="revanced_ryd_shorts_summary_on">"Dislikes on Shorts are shown
 
 Limitation: Dislikes may not appear in incognito mode"</string>
             <string name="revanced_ryd_shorts_summary_off">Dislikes on Shorts are not shown</string>
@@ -895,12 +927,11 @@ Limitation: Dislikes may not appear in incognito mode"</string>
             <string name="revanced_ryd_compact_layout_summary_on">Like button styled for minimum width</string>
             <string name="revanced_ryd_compact_layout_summary_off">Like button styled for best appearance</string>
             <string name="revanced_ryd_estimated_like_title">Show estimated likes</string>
-            <string name="revanced_ryd_estimated_like_summary_on">Estimated likes are shown</string>
-            <string name="revanced_ryd_estimated_like_summary_off">Estimated likes are hidden</string>
+            <string name="revanced_ryd_estimated_like_summary_on">Videos with disabled likes show an estimated likes count</string>
+            <string name="revanced_ryd_estimated_like_summary_off">Estimated likes are not shown</string>
             <string name="revanced_ryd_toast_on_connection_error_title">Show a toast if API is not available</string>
             <string name="revanced_ryd_toast_on_connection_error_summary_on">Toast is shown if Return YouTube Dislike is not available</string>
             <string name="revanced_ryd_toast_on_connection_error_summary_off">Toast is not shown if Return YouTube Dislike is not available</string>
-            <string name="revanced_ryd_about">About</string>
             <string name="revanced_ryd_attribution_title" translatable="false">ReturnYouTubeDislike.com</string>
             <string name="revanced_ryd_attribution_summary">Data is provided by the Return YouTube Dislike API. Tap here to learn more</string>
             <!-- Statistic strings are shown in the settings only when ReVanced debug mode is enabled. Typical users will never see these. -->
@@ -942,7 +973,7 @@ This feature works best with a video quality of 720p or lower and when using a v
             <string name="revanced_restore_old_seekbar_thumbnails_summary_off">Seekbar thumbnails will appear in fullscreen</string>
         </patch>
         <patch id="layout.sponsorblock.sponsorBlockResourcePatch">
-            <string name="revanced_sb_settings_title" translatable="false">SponsorBlock</string>
+            <string name="revanced_settings_screen_10_sponsorblock_title" translatable="false">SponsorBlock</string>
             <string name="revanced_sb_enable_sb">Enable SponsorBlock</string>
             <string name="revanced_sb_enable_sb_sum">SponsorBlock is a crowdsourced system for skipping annoying parts of YouTube videos</string>
             <string name="revanced_sb_appearance_category">Appearance</string>
@@ -1109,7 +1140,7 @@ Ready to submit?"</string>
             <string name="revanced_sb_new_segment_edit_by_hand_title">Edit timing of segment manually</string>
             <string name="revanced_sb_new_segment_edit_by_hand_content">Do you want to edit the timing for the start or end of the segment?</string>
             <string name="revanced_sb_new_segment_edit_by_hand_parse_error">Invalid time given</string>
-            <string name="revanced_sb_stats">Stats</string>
+            <string name="revanced_sb_stats_title">Stats</string>
             <!-- Shown in the settings preferences, and translations can be any text length. -->
             <string name="revanced_sb_stats_connection_failure">Stats are temporarily not available (API is down)</string>
             <string name="revanced_sb_stats_loading">Loading...</string>
@@ -1138,9 +1169,9 @@ Ready to submit?"</string>
             <string name="revanced_sb_color_invalid">Invalid color code</string>
             <string name="revanced_sb_reset_color">Reset color</string>
             <string name="revanced_sb_reset">Reset</string>
-            <string name="revanced_sb_about">About</string>
-            <string name="revanced_sb_about_api" translatable="false">sponsor.ajay.app</string>
-            <string name="revanced_sb_about_api_sum">Data is provided by the SponsorBlock API. Tap here to learn more and see downloads for other platforms</string>
+            <string name="revanced_sb_about_title">About</string>
+            <string name="revanced_sb_about_api_title" translatable="false">sponsor.ajay.app</string>
+            <string name="revanced_sb_about_api_summary">Data is provided by the SponsorBlock API. Tap here to learn more and see downloads for other platforms</string>
         </patch>
         <patch id="layout.formfactor.changeFormFactorPatch">
             <string name="revanced_change_form_factor_title">Layout form factor</string>
@@ -1173,7 +1204,7 @@ If later turned off, it is recommended to clear the app data to prevent UI bugs.
             <string name="revanced_spoof_app_version_target_entry_2">19.01.34 - Restore old navigation icons</string>
         </patch>
         <patch id="layout.startpage.changeStartPagePatch">
-            <string name="revanced_change_start_page_title">Set start page</string>
+            <string name="revanced_change_start_page_title">Change start page</string>
             <string name="revanced_change_start_page_entry_default">Default</string>
             <string name="revanced_change_start_page_entry_all_subscriptions">All subscriptions</string>
             <string name="revanced_change_start_page_entry_browse">Browse channels</string>
@@ -1199,6 +1230,11 @@ If later turned off, it is recommended to clear the app data to prevent UI bugs.
             <string name="revanced_change_start_page_entry_virtual_reality">Virtual Reality</string>
             <string name="revanced_change_start_page_entry_watch_later">Watch later</string>
             <string name="revanced_change_start_page_entry_your_clips">Your clips</string>
+            <string name="revanced_change_start_page_always_title">Always change start page</string>
+            <string name="revanced_change_start_page_always_summary_on">"Start page is always changed
+
+Limitation: Using the back button on the toolbar may not work"</string>
+            <string name="revanced_change_start_page_always_summary_off">Start page is changed only on app startup</string>
         </patch>
         <patch id="layout.startupshortsreset.disableResumingShortsOnStartupPatch">
             <string name="revanced_disable_resuming_shorts_player_title">Disable resuming Shorts player</string>
@@ -1359,6 +1395,9 @@ Enabling this can unlock higher video qualities"</string>
         <patch id="misc.gms.gmsCoreSupportResourcePatch">
             <string name="microg_settings_title">GmsCore Settings</string>
             <string name="microg_settings_summary">Settings for GmsCore</string>
+        </patch>
+        <patch id="misc.gms.accountCredentialsInvalidTextPatch">
+            <string name="microg_offline_account_login_error">If you recently changed your account login details, then uninstall and reinstall MicroG.</string>
         </patch>
         <patch id="misc.links.bypassURLRedirectsPatch">
             <string name="revanced_bypass_url_redirects_title">Bypass URL redirects</string>

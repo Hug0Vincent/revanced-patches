@@ -4,6 +4,21 @@ import app.revanced.patcher.fingerprint
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 
+internal val conversionContextFingerprintToString = fingerprint {
+    parameters()
+    strings(
+        "ConversionContext{containerInternal=",
+        ", widthConstraint=",
+        ", heightConstraint=",
+        ", templateLoggerFactory=",
+        ", rootDisposableContainer=",
+        ", identifierProperty="
+    )
+    custom { method, _ ->
+        method.name == "toString"
+    }
+}
+
 internal val autoRepeatFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC, AccessFlags.FINAL)
     returns("V")
@@ -33,8 +48,7 @@ internal val mainActivityFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC, AccessFlags.CONSTRUCTOR)
     parameters()
     custom { _, classDef ->
-        // Old versions of YouTube called this class "WatchWhileActivity" instead.
-        classDef.endsWith("MainActivity;") || classDef.endsWith("WatchWhileActivity;")
+        classDef.endsWith("MainActivity;")
     }
 }
 
@@ -42,12 +56,7 @@ internal val mainActivityOnCreateFingerprint = fingerprint {
     returns("V")
     parameters("Landroid/os/Bundle;")
     custom { method, classDef ->
-        method.name == "onCreate" &&
-            (
-                classDef.endsWith("MainActivity;") ||
-                    // Old versions of YouTube called this class "WatchWhileActivity" instead.
-                    classDef.endsWith("WatchWhileActivity;")
-                )
+        method.name == "onCreate" && classDef.endsWith("MainActivity;")
     }
 }
 

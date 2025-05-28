@@ -40,7 +40,7 @@ public class PlayerFlyoutMenuItemsFilter extends Filter {
 
         addPathCallbacks(
                 videoQualityMenuFooter,
-                new StringFilterGroup(null, "overflow_menu_item.eml|")
+                new StringFilterGroup(null, "overflow_menu_item.eml")
         );
 
         flyoutFilterGroupList.addAll(
@@ -99,7 +99,7 @@ public class PlayerFlyoutMenuItemsFilter extends Filter {
     boolean isFiltered(@Nullable String identifier, String path, byte[] protobufBufferArray,
                        StringFilterGroup matchedGroup, FilterContentType contentType, int contentIndex) {
         if (matchedGroup == videoQualityMenuFooter) {
-            return super.isFiltered(identifier, path, protobufBufferArray, matchedGroup, contentType, contentIndex);
+            return true;
         }
 
         if (contentIndex != 0) {
@@ -111,11 +111,6 @@ public class PlayerFlyoutMenuItemsFilter extends Filter {
             return false;
         }
 
-        if (flyoutFilterGroupList.check(protobufBufferArray).isFiltered()) {
-            // Super class handles logging.
-            return super.isFiltered(identifier, path, protobufBufferArray, matchedGroup, contentType, contentIndex);
-        }
-
-        return false;
+        return flyoutFilterGroupList.check(protobufBufferArray).isFiltered();
     }
 }

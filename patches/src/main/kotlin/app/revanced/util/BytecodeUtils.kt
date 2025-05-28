@@ -11,12 +11,14 @@ import app.revanced.patcher.patch.BytecodePatchContext
 import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.util.proxy.mutableTypes.MutableClass
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
+import app.revanced.patcher.util.smali.ExternalLabel
 import app.revanced.patches.shared.misc.mapping.get
 import app.revanced.patches.shared.misc.mapping.resourceMappingPatch
 import app.revanced.patches.shared.misc.mapping.resourceMappings
 import app.revanced.util.InstructionUtils.Companion.branchOpcodes
 import app.revanced.util.InstructionUtils.Companion.returnOpcodes
 import app.revanced.util.InstructionUtils.Companion.writeOpcodes
+import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.Opcode.*
 import com.android.tools.smali.dexlib2.iface.Method
@@ -63,35 +65,6 @@ fun Method.findFreeRegister(startIndex: Int, vararg registersToExclude: Int): In
         val instruction = getInstruction(i)
         val instructionRegisters = instruction.registersUsed
 
-        if (instruction.isReturnInstruction) {
-            usedRegisters.addAll(instructionRegisters)
-
-            // Use lowest register that hasn't been encountered.
-            val freeRegister = (0 until implementation!!.registerCount).find {
-                it !in usedRegisters
-            }
-            if (freeRegister != null) {
-                return freeRegister
-            }
-            if (bestFreeRegisterFound != null) {
-                return bestFreeRegisterFound
-            }
-
-            // Somehow every method register was read from before any register was wrote to.
-            // In practice this never occurs.
-            throw IllegalArgumentException("Could not find a free register from startIndex: " +
-                    "$startIndex excluding: $registersToExclude")
-        }
-
-        if (instruction.isBranchInstruction) {
-            if (bestFreeRegisterFound != null) {
-                return bestFreeRegisterFound
-            }
-            // This method is simple and does not follow branching.
-            throw IllegalArgumentException("Encountered a branch statement before a free register could be found")
-        }
-
-
         val writeRegister = instruction.writeRegister
         if (writeRegister != null) {
             if (writeRegister !in usedRegisters) {
@@ -112,6 +85,32 @@ fun Method.findFreeRegister(startIndex: Int, vararg registersToExclude: Int): In
         }
 
         usedRegisters.addAll(instructionRegisters)
+
+        if (instruction.isBranchInstruction) {
+            if (bestFreeRegisterFound != null) {
+                return bestFreeRegisterFound
+            }
+            // This method is simple and does not follow branching.
+            throw IllegalArgumentException("Encountered a branch statement before a free register could be found")
+        }
+
+        if (instruction.isReturnInstruction) {
+            // Use lowest register that hasn't been encountered.
+            val freeRegister = (0 until implementation!!.registerCount).find {
+                it !in usedRegisters
+            }
+            if (freeRegister != null) {
+                return freeRegister
+            }
+            if (bestFreeRegisterFound != null) {
+                return bestFreeRegisterFound
+            }
+
+            // Somehow every method register was read from before any register was wrote to.
+            // In practice this never occurs.
+            throw IllegalArgumentException("Could not find a free register from startIndex: " +
+                    "$startIndex excluding: $registersToExclude")
+        }
     }
 
     // Some methods can have array payloads at the end of the method after a return statement.
@@ -169,6 +168,15 @@ internal val Instruction.isReturnInstruction: Boolean
     get() = this.opcode in returnOpcodes
 
 /**
+ * Adds public [AccessFlags] and removes private and protected flags (if present).
+ */
+internal fun Int.toPublicAccessFlags() : Int {
+    return this.or(AccessFlags.PUBLIC.value)
+        .and(AccessFlags.PROTECTED.value.inv())
+        .and(AccessFlags.PRIVATE.value.inv())
+}
+
+/**
  * Find the [MutableMethod] from a given [Method] in a [MutableClass].
  *
  * @param method The [Method] to find.
@@ -207,6 +215,26 @@ fun MutableMethod.injectHideViewCall(
     "invoke-static { v$viewRegister }, $classDescriptor->$targetMethod(Landroid/view/View;)V",
 )
 
+
+/**
+ * Inserts instructions at a given index, using the existing control flow label at that index.
+ * Inserted instructions can have it's own control flow labels as well.
+ *
+ * Effectively this changes the code from:
+ * :label
+ * (original code)
+ *
+ * Into:
+ * :label
+ * (patch code)
+ * (original code)
+ */
+// TODO: delete this on next major version bump.
+fun MutableMethod.addInstructionsAtControlFlowLabel(
+    insertIndex: Int,
+    instructions: String
+) = addInstructionsAtControlFlowLabel(insertIndex, instructions, *arrayOf<ExternalLabel>())
+
 /**
  * Inserts instructions at a given index, using the existing control flow label at that index.
  * Inserted instructions can have it's own control flow labels as well.
@@ -223,13 +251,14 @@ fun MutableMethod.injectHideViewCall(
 fun MutableMethod.addInstructionsAtControlFlowLabel(
     insertIndex: Int,
     instructions: String,
+    vararg externalLabels: ExternalLabel
 ) {
     // Duplicate original instruction and add to +1 index.
     addInstruction(insertIndex + 1, getInstruction(insertIndex))
 
     // Add patch code at same index as duplicated instruction,
     // so it uses the original instruction control flow label.
-    addInstructionsWithLabels(insertIndex + 1, instructions)
+    addInstructionsWithLabels(insertIndex + 1, instructions, *externalLabels)
 
     // Remove original non duplicated instruction.
     removeInstruction(insertIndex)
@@ -472,7 +501,7 @@ fun Method.indexOfFirstInstruction(startIndex: Int = 0, targetOpcode: Opcode): I
  * @see indexOfFirstInstructionOrThrow
  */
 fun Method.indexOfFirstInstruction(startIndex: Int = 0, filter: Instruction.() -> Boolean): Int {
-    var instructions = this.implementation!!.instructions
+    var instructions = this.implementation?.instructions ?: return -1
     if (startIndex != 0) {
         instructions = instructions.drop(startIndex)
     }
@@ -538,7 +567,7 @@ fun Method.indexOfFirstInstructionReversed(startIndex: Int? = null, targetOpcode
  * @see indexOfFirstInstructionReversedOrThrow
  */
 fun Method.indexOfFirstInstructionReversed(startIndex: Int? = null, filter: Instruction.() -> Boolean): Int {
-    var instructions = this.implementation!!.instructions
+    var instructions = this.implementation?.instructions ?: return -1
     if (startIndex != null) {
         instructions = instructions.take(startIndex + 1)
     }
@@ -698,29 +727,54 @@ fun BytecodePatchContext.forEachLiteralValueInstruction(
 }
 
 /**
- * Return the method early.
+ * Overrides the first instruction of a method with a constant return value.
+ * None of the method code will ever execute.
  */
-fun MutableMethod.returnEarly(bool: Boolean = false) {
+fun MutableMethod.returnEarly(overrideValue: Boolean = false) = overrideReturnValue(overrideValue, false)
+
+/**
+ * Overrides all return statements with a constant value.
+ * All method code is executed the same as unpatched.
+ *
+ * @see returnEarly
+ */
+internal fun MutableMethod.returnLate(overrideValue: Boolean = false) = overrideReturnValue(overrideValue, true)
+
+private fun MutableMethod.overrideReturnValue(bool: Boolean, returnLate: Boolean) {
     val const = if (bool) "0x1" else "0x0"
 
-    val stringInstructions = when (returnType.first()) {
-        'L' ->
+    val instructions = when (returnType.first()) {
+        'L' -> {
             """
                 const/4 v0, $const
                 return-object v0
             """
+        }
 
-        'V' -> "return-void"
-        'I', 'Z' ->
+        'V' -> {
+            if (returnLate) throw IllegalArgumentException("Cannot return late for method of void type")
+            "return-void"
+        }
+
+        'I', 'Z' -> {
             """
                 const/4 v0, $const
                 return v0
             """
+        }
 
         else -> throw Exception("Return type is not supported: $this")
     }
 
-    addInstructions(0, stringInstructions)
+    if (returnLate) {
+        findInstructionIndicesReversed {
+            opcode == RETURN || opcode == RETURN_OBJECT
+        }.forEach { index ->
+            addInstructionsAtControlFlowLabel(index, instructions)
+        }
+    } else {
+        addInstructions(0, instructions)
+    }
 }
 
 /**

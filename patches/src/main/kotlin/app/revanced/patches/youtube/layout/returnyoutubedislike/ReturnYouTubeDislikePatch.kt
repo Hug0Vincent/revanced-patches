@@ -6,22 +6,30 @@ import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.patch.bytecodePatch
 import app.revanced.patches.all.misc.resources.addResources
 import app.revanced.patches.all.misc.resources.addResourcesPatch
-import app.revanced.patches.shared.misc.settings.preference.IntentPreference
+import app.revanced.patches.shared.misc.settings.preference.NonInteractivePreference
+import app.revanced.patches.shared.misc.settings.preference.PreferenceCategory
+import app.revanced.patches.shared.misc.settings.preference.PreferenceScreenPreference
+import app.revanced.patches.shared.misc.settings.preference.SwitchPreference
 import app.revanced.patches.youtube.misc.extension.sharedExtensionPatch
 import app.revanced.patches.youtube.misc.litho.filter.addLithoFilter
 import app.revanced.patches.youtube.misc.litho.filter.lithoFilterPatch
 import app.revanced.patches.youtube.misc.playertype.playerTypeHookPatch
 import app.revanced.patches.youtube.misc.playservice.is_19_33_or_greater
+import app.revanced.patches.youtube.misc.playservice.is_20_07_or_greater
 import app.revanced.patches.youtube.misc.playservice.is_20_10_or_greater
 import app.revanced.patches.youtube.misc.playservice.versionCheckPatch
-import app.revanced.patches.youtube.misc.settings.addSettingPreference
-import app.revanced.patches.youtube.misc.settings.newIntent
+import app.revanced.patches.youtube.misc.settings.PreferenceScreen
 import app.revanced.patches.youtube.misc.settings.settingsPatch
+import app.revanced.patches.youtube.shared.conversionContextFingerprintToString
 import app.revanced.patches.youtube.shared.rollingNumberTextViewAnimationUpdateFingerprint
 import app.revanced.patches.youtube.video.videoid.hookPlayerResponseVideoId
 import app.revanced.patches.youtube.video.videoid.hookVideoId
 import app.revanced.patches.youtube.video.videoid.videoIdPatch
-import app.revanced.util.*
+import app.revanced.util.addInstructionsAtControlFlowLabel
+import app.revanced.util.findFreeRegister
+import app.revanced.util.getReference
+import app.revanced.util.indexOfFirstInstructionOrThrow
+import app.revanced.util.returnLate
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
@@ -59,21 +67,31 @@ val returnYouTubeDislikePatch = bytecodePatch(
             "19.43.41",
             "19.47.53",
             "20.07.39",
-        ),
+            "20.12.46",
+        )
     )
 
     execute {
         addResources("youtube", "layout.returnyoutubedislike.returnYouTubeDislikePatch")
 
-        addSettingPreference(
-            IntentPreference(
-                key = "revanced_settings_screen_09",
-                titleKey = "revanced_ryd_settings_title",
-                summaryKey = null,
-                icon = "@drawable/revanced_settings_screen_09_ryd",
-                layout = "@layout/preference_with_icon",
-                intent = newIntent("revanced_ryd_settings_intent"),
+        PreferenceScreen.RETURN_YOUTUBE_DISLIKE.addPreferences(
+            SwitchPreference("revanced_ryd_enabled"),
+            SwitchPreference("revanced_ryd_shorts"),
+            SwitchPreference("revanced_ryd_dislike_percentage"),
+            SwitchPreference("revanced_ryd_compact_layout"),
+            SwitchPreference("revanced_ryd_estimated_like"),
+            SwitchPreference("revanced_ryd_toast_on_connection_error"),
+            NonInteractivePreference(
+                key = "revanced_ryd_attribution",
+                tag = "app.revanced.extension.youtube.returnyoutubedislike.ui.ReturnYouTubeDislikeAboutPreference",
+                selectable = true,
             ),
+            PreferenceCategory(
+                key = "revanced_ryd_statistics_category",
+                sorting = PreferenceScreenPreference.Sorting.UNSORTED,
+                preferences = emptySet(), // Preferences are added by custom class at runtime.
+                tag = "app.revanced.extension.youtube.returnyoutubedislike.ui.ReturnYouTubeDislikeDebugStatsPreferenceCategory"
+            )
         )
 
         // region Inject newVideoLoaded event handler to update dislikes when a new video is loaded.
@@ -111,11 +129,11 @@ val returnYouTubeDislikePatch = bytecodePatch(
         // This hook handles all situations, as it's where the created Spans are stored and later reused.
         // Find the field name of the conversion context.
         val conversionContextField = textComponentConstructorFingerprint.originalClassDef.fields.find {
-            it.type == conversionContextFingerprint.originalClassDef.type
+            it.type == conversionContextFingerprintToString.originalClassDef.type
         } ?: throw PatchException("Could not find conversion context field")
 
         textComponentLookupFingerprint.match(textComponentConstructorFingerprint.originalClassDef)
-        textComponentLookupFingerprint.method.apply {
+            .method.apply {
             // Find the instruction for creating the text data object.
             val textDataClassType = textComponentDataFingerprint.originalClassDef.type
 
@@ -158,12 +176,12 @@ val returnYouTubeDislikePatch = bytecodePatch(
             addInstructionsAtControlFlowLabel(
                 insertIndex,
                 """
-                        # Copy conversion context
-                        move-object/from16 v$tempRegister, p0
-                        iget-object v$tempRegister, v$tempRegister, $conversionContextField
-                        invoke-static { v$tempRegister, v$charSequenceRegister }, $EXTENSION_CLASS_DESCRIPTOR->onLithoTextLoaded(Ljava/lang/Object;Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
-                        move-result-object v$charSequenceRegister
-                    """,
+                    # Copy conversion context
+                    move-object/from16 v$tempRegister, p0
+                    iget-object v$tempRegister, v$tempRegister, $conversionContextField
+                    invoke-static { v$tempRegister, v$charSequenceRegister }, $EXTENSION_CLASS_DESCRIPTOR->onLithoTextLoaded(Ljava/lang/Object;Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
+                    move-result-object v$charSequenceRegister
+                """
             )
         }
 
@@ -173,6 +191,14 @@ val returnYouTubeDislikePatch = bytecodePatch(
 
         // Filter that parses the video id from the UI
         addLithoFilter(FILTER_CLASS_DESCRIPTOR)
+
+        if (is_20_07_or_greater) {
+            // Turn off a/b flag that enables new code for creating litho spans.
+            // If enabled then the litho text span hook is never called.
+            // Target code is very obfuscated and exactly what the code does is not clear.
+            // Return late so debug patch logs if the flag is enabled.
+            textComponentFeatureFlagFingerprint.method.returnLate(false)
+        }
 
         // Player response video id is needed to search for the video ids in Shorts litho components.
         hookPlayerResponseVideoId("$FILTER_CLASS_DESCRIPTOR->newPlayerResponseVideoId(Ljava/lang/String;Z)V")
@@ -191,11 +217,9 @@ val returnYouTubeDislikePatch = bytecodePatch(
             val charSequenceFieldReference =
                 getInstruction<ReferenceInstruction>(dislikesIndex).reference
 
-            val registerCount = implementation!!.registerCount
+            val conversionContextRegister = implementation!!.registerCount - parameters.size + 1
 
-            // This register is being overwritten, so it is free to use.
-            val freeRegister = registerCount - 1
-            val conversionContextRegister = registerCount - parameters.size + 1
+            val freeRegister = findFreeRegister(insertIndex, charSequenceInstanceRegister, conversionContextRegister)
 
             addInstructions(
                 insertIndex,

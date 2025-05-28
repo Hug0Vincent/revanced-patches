@@ -42,6 +42,10 @@ Second \"item\" text"</string>
   <string name="revanced_settings_import_reset">Pengaturan ReVanced diatur ke setelan awal</string>
   <string name="revanced_settings_import_success">Mengimpor setelan %d</string>
   <string name="revanced_settings_import_failure_parse">Impor gagal: %s</string>
+  <string name="revanced_settings_search_hint">Pengaturan pencarian</string>
+  <string name="revanced_settings_search_no_results_title">Tidak ada hasil yang ditemukan untuk \'%s\'</string>
+  <string name="revanced_settings_search_no_results_summary">Coba kata kunci lain</string>
+  <string name="revanced_settings_search_remove_message">Hapus dari riwayat pencarian?</string>
   <string name="revanced_show_menu_icons_title">Tampilkan ikon pengaturan ReVanced</string>
   <string name="revanced_show_menu_icons_summary_on">Ikon pengaturan ditampilkan</string>
   <string name="revanced_show_menu_icons_summary_off">Ikon pengaturan tidak ditampilkan</string>
@@ -93,6 +97,9 @@ Ketuk tombol lanjutkan dan izinkan perubahan pengoptimalan."</string>
   <string name="revanced_restore_old_settings_menus_title">Pulihkan menu pengaturan lama</string>
   <string name="revanced_restore_old_settings_menus_summary_on">Menu pengaturan lama ditampilkan</string>
   <string name="revanced_restore_old_settings_menus_summary_off">Menu pengaturan lama tidak ditampilkan</string>
+  <string name="revanced_settings_search_history_title">Tampilkan pengaturan riwayat pencarian</string>
+  <string name="revanced_settings_search_history_summary_on">Pengaturan riwayat pencarian ditampilkan</string>
+  <string name="revanced_settings_search_history_summary_off">Pengaturan riwayat pencarian tidak ditampilkan</string>
   </patch>
   <patch id="misc.backgroundplayback.backgroundPlaybackPatch">
   <string name="revanced_shorts_disable_background_playback_title">Nonaktifkan pemutaran Shorts di latar belakang</string>
@@ -153,15 +160,18 @@ Anda tidak akan diberi tahu tentang kejadian yang tidak terduga."</string>
   <string name="revanced_hide_notify_me_button_title">Sembunyikan \'Beri tahu saya\'</string>
   <string name="revanced_hide_notify_me_button_summary_on">Tombol disembunyikan</string>
   <string name="revanced_hide_notify_me_button_summary_off">Tombol ditampilkan</string>
-  <!-- 'People also watched' should be translated using the same localized wording YouTube displays. -->
-  <string name="revanced_hide_search_result_recommendations_title">Sembunyikan label \'Orang juga menonton\'</string>
-  <string name="revanced_hide_search_result_recommendations_summary_on">Label disembunyikan</string>
-  <string name="revanced_hide_search_result_recommendations_summary_off">Label ditampilkan</string>
+  <!-- 'People also watched' and 'You might also like' should be translated using the same localized wording YouTube displays. -->
+  <string name="revanced_hide_search_result_recommendation_labels_title">Sembunyikan label rekomendasi video</string>
+  <string name="revanced_hide_search_result_recommendation_labels_summary_on">Label \'Orang lain juga menonton\' dan \'Anda mungkin juga suka\' disembunyikan</string>
+  <string name="revanced_hide_search_result_recommendation_labels_summary_off">Label \'Orang lain juga menonton\' dan \'Anda mungkin juga suka\' ditampilkan</string>
   <!-- 'Show more' should be translated with the same localized wording that YouTube displays.
                   This button usually appears when searching for a YT creator. -->
   <string name="revanced_hide_show_more_button_title">Sembunyikan tombol \'Tampilkan selengkapnya\'</string>
   <string name="revanced_hide_show_more_button_summary_on">Tombol disembunyikan</string>
   <string name="revanced_hide_show_more_button_summary_off">Tombol ditampilkan</string>
+  <string name="revanced_hide_ticket_shelf_title">Sembunyikan rak tiket</string>
+  <string name="revanced_hide_ticket_shelf_summary_on">Rak tiket disembunyikan</string>
+  <string name="revanced_hide_ticket_shelf_summary_off">Rak tiket ditampilkan</string>
   <string name="revanced_hide_timed_reactions_title">Sembunyikan reaksi terjadwal</string>
   <string name="revanced_hide_timed_reactions_summary_on">Reaksi terjadwal disembunyikan</string>
   <string name="revanced_hide_timed_reactions_summary_off">Reaksi terjadwal ditampilkan</string>
@@ -231,6 +241,9 @@ Anda tidak akan diberi tahu tentang kejadian yang tidak terduga."</string>
   <string name="revanced_hide_ai_generated_video_summary_section_title">Sembunyikan \'Ringkasan video yang dibuat AI\'</string>
   <string name="revanced_hide_ai_generated_video_summary_section_summary_on">Bagian ringkasan video disembunyikan</string>
   <string name="revanced_hide_ai_generated_video_summary_section_summary_off">Bagian ringkasan video ditampilkan</string>
+  <string name="revanced_hide_ask_section_title">Sembunyikan Tanya</string>
+  <string name="revanced_hide_ask_section_summary_on">Bagian Tanya disembunyikan</string>
+  <string name="revanced_hide_ask_section_summary_off">Bagian Tanya ditampilkan</string>
   <string name="revanced_hide_attributes_section_title">Sembunyikan Atribut</string>
   <string name="revanced_hide_attributes_section_summary_on">Bagian tempat Unggulan, Game, Musik, dan disebutkan Orang disembunyikan</string>
   <string name="revanced_hide_attributes_section_summary_off">Bagian tempat Unggulan, Game, Musik, dan disebutkan Orang ditampilkan</string>
@@ -459,29 +472,38 @@ Menyesuaikan volume dengan mengusap secara vertikal di sisi kanan layar"</string
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_title">Aktifkan gerakan kecerahan otomatis</string>
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_on">Mengusap ke bawah ke nilai terendah dari gerakan kecerahan akan menyalakan kecerahan otomatis</string>
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_off">Mengusap ke bawah ke nilai terendah tidak mengaktifkan kecerahan otomatis</string>
+  <string name="revanced_swipe_lowest_value_enable_auto_brightness_overlay_text">Otomatis</string>
   <string name="revanced_swipe_overlay_timeout_title">Batas waktu hamparan usap</string>
   <string name="revanced_swipe_overlay_timeout_summary">Jumlah milidetik hamparan terlihat</string>
   <string name="revanced_swipe_overlay_background_opacity_title">Opasitas latar belakang hamparan geser</string>
   <string name="revanced_swipe_overlay_background_opacity_summary">Nilai opasitas antara 0-100</string>
   <string name="revanced_swipe_overlay_background_opacity_invalid_toast">Opasitas geser harus antara 0-100</string>
+  <string name="revanced_swipe_overlay_progress_color_title">Warna bilah kemajuan lapisan usap</string>
+  <string name="revanced_swipe_overlay_progress_color_summary">Warna bilah kemajuan untuk kontrol volume dan kecerahan</string>
+  <string name="revanced_swipe_overlay_progress_color_invalid_toast">Warna bilah kemajuan tidak sah</string>
+  <string name="revanced_swipe_text_overlay_size_title">Ukuran teks lapisan usap</string>
+  <string name="revanced_swipe_text_overlay_size_summary">Ukuran teks untuk lapisan usap antara 1-30</string>
+  <string name="revanced_swipe_text_overlay_size_invalid_toast">Ukuran teks harus antara 1-30</string>
   <string name="revanced_swipe_threshold_title">Ambang batas magnitudo usap</string>
   <string name="revanced_swipe_threshold_summary">Jumlah ambang batas untuk terjadinya usapan</string>
-  <string name="revanced_swipe_volume_sensitivity_title">Sensitivitas gesek volume</string>
-  <string name="revanced_swipe_volume_sensitivity_summary">Seberapa besar perubahan volume per gesekan</string>
-  <string name="revanced_swipe_show_circular_overlay_title">Tampilkan hamparan melingkar</string>
-  <string name="revanced_swipe_show_circular_overlay_summary_on">Hamparan melingkar ditampilkan</string>
-  <string name="revanced_swipe_show_circular_overlay_summary_off">Hamparan horizontal ditampilkan</string>
-  <string name="revanced_swipe_overlay_minimal_style_title">Aktifkan gaya minimal</string>
-  <string name="revanced_swipe_overlay_minimal_style_summary_on">Gaya hamparan minimal diaktifkan</string>
-  <string name="revanced_swipe_overlay_minimal_style_summary_off">Gaya hamparan minimal dinonaktifkan</string>
+  <string name="revanced_swipe_volume_sensitivity_title">Sensitivitas volume usap</string>
+  <string name="revanced_swipe_volume_sensitivity_summary">Seberapa besar perubahan volume per usapan</string>
+  <string name="revanced_swipe_overlay_style_title">Gaya hamparan usap</string>
+  <string name="revanced_swipe_overlay_style_entry_1">Hamparan horizontal</string>
+  <string name="revanced_swipe_overlay_style_entry_2">Hamparan horizontal (minimal - atas)</string>
+  <string name="revanced_swipe_overlay_style_entry_3">Hamparan horizontal (minimal - tengah)</string>
+  <string name="revanced_swipe_overlay_style_entry_4">Hamparan melingkar</string>
+  <string name="revanced_swipe_overlay_style_entry_5">Hamparan melingkar (minimal)</string>
+  <string name="revanced_swipe_overlay_style_entry_6">Hamparan vertikal</string>
+  <string name="revanced_swipe_overlay_style_entry_7">Hamparan vertikal (minimal)</string>
   <string name="revanced_swipe_change_video_title">Aktifkan usapan untuk beralih video</string>
   <string name="revanced_swipe_change_video_summary_on">Mengusap dalam mode layar penuh akan beralih ke video berikutnya/sebelumnya</string>
   <string name="revanced_swipe_change_video_summary_off">Mengusap dalam mode layar penuh tidak akan beralih ke video berikutnya/sebelumnya</string>
   </patch>
   <patch id="layout.autocaptions.autoCaptionsPatch">
-  <string name="revanced_auto_captions_title">Matikan teks otomatis</string>
-  <string name="revanced_auto_captions_summary_on">Teks otomatis dinonaktifkan</string>
-  <string name="revanced_auto_captions_summary_off">Teks otomatis diaktifkan</string>
+  <string name="revanced_disable_auto_captions_title">Matikan teks otomatis</string>
+  <string name="revanced_disable_auto_captions_summary_on">Teks otomatis dinonaktifkan</string>
+  <string name="revanced_disable_auto_captions_summary_off">Teks otomatis diaktifkan</string>
   </patch>
   <patch id="layout.buttons.action.hideButtonsPatch">
   <string name="revanced_hide_buttons_screen_title">Tombol tindakan</string>
@@ -513,6 +535,11 @@ Menyesuaikan volume dengan mengusap secara vertikal di sisi kanan layar"</string
   <string name="revanced_hide_thanks_button_title">Sembunyikan Terima kasih</string>
   <string name="revanced_hide_thanks_button_summary_on">Tombol terima kasih disembunyikan</string>
   <string name="revanced_hide_thanks_button_summary_off">Tombol terima kasih ditampilkan</string>
+  <!-- 'Ask' should be translated with the same localized wording that YouTube displays.
+                 Button only shows if the user ip is from specific region such as the USA or EU. -->
+  <string name="revanced_hide_ask_button_title">Sembunyikan Tanya</string>
+  <string name="revanced_hide_ask_button_summary_on">Tombol Tanya disembunyikan</string>
+  <string name="revanced_hide_ask_button_summary_off">Tombol Tanya ditampilkan</string>
   <!-- 'Clip' should be translated with the same localized wording that YouTube displays. -->
   <string name="revanced_hide_clip_button_title">Sembunyikan Klip</string>
   <string name="revanced_hide_clip_button_summary_on">Tombol klip disembunyikan</string>
@@ -780,6 +807,11 @@ Pemutaran otomatis dapat diubah di pengaturan YouTube:
 Pengaturan → Pemutaran → Putar otomatis video berikutnya"</string>
   <string name="revanced_end_screen_suggested_video_summary_off">Video yang disarankan di layar akhir ditampilkan</string>
   </patch>
+  <patch id="layout.hide.relatedvideooverlay.hideRelatedVideoOverlayPatch">
+  <string name="revanced_hide_related_video_overlay_title">Sembunyikan hamparan video terkait dalam layar penuh</string>
+  <string name="revanced_hide_related_video_overlay_summary_on">Hamparan video terkait disembunyikan</string>
+  <string name="revanced_hide_related_video_overlay_summary_off">Hamparan video terkait ditampilkan</string>
+  </patch>
   <patch id="layout.hide.time.hideTimestampPatch">
   <string name="revanced_hide_timestamp_title">Sembunyikan timestamp video</string>
   <string name="revanced_hide_timestamp_summary_on">Timestamp disembunyikan</string>
@@ -817,10 +849,10 @@ Pengaturan → Pemutaran → Putar otomatis video berikutnya"</string>
   <string name="revanced_ryd_failure_ryd_enabled_while_playing_video_then_user_voted">Muat ulang video untuk memilih Return YouTube Dislike</string>
   <!-- Video likes have been set to hidden by the video uploader. -->
   <string name="revanced_ryd_video_likes_hidden_by_video_owner">Disembunyikan oleh pemilik</string>
-  <string name="revanced_ryd_enable_summary_on">Dislike ditampilkan</string>
-  <string name="revanced_ryd_enable_summary_off">Dislike tidak ditampilkan</string>
+  <string name="revanced_ryd_enabled_summary_on">Dislike ditampilkan</string>
+  <string name="revanced_ryd_enabled_summary_off">Dislike tidak ditampilkan</string>
   <string name="revanced_ryd_shorts_title">Tampilkan dislike di Shorts</string>
-  <string name="revanced_ryd_shorts_summary_on_disclaimer">"Dislike pada Shorts ditampilkan
+  <string name="revanced_ryd_shorts_summary_on">"Dislike pada Shorts ditampilkan
 
 Batasan: Dislike mungkin tidak muncul dalam mode penyamaran"</string>
   <string name="revanced_ryd_shorts_summary_off">Dislike pada Shorts tidak ditampilkan</string>
@@ -832,12 +864,11 @@ Batasan: Dislike mungkin tidak muncul dalam mode penyamaran"</string>
   <string name="revanced_ryd_compact_layout_summary_on">Tombol suka ditata untuk lebar minimum</string>
   <string name="revanced_ryd_compact_layout_summary_off">Tombol suka ditata untuk tampilan terbaik</string>
   <string name="revanced_ryd_estimated_like_title">Tampilkan perkiraan suka</string>
-  <string name="revanced_ryd_estimated_like_summary_on">Perkiraan suka ditampilkan</string>
-  <string name="revanced_ryd_estimated_like_summary_off">Perkiraan suka disembunyikan</string>
+  <string name="revanced_ryd_estimated_like_summary_on">Video dengan suka yang dinonaktifkan menampilkan perkiraan jumlah suka</string>
+  <string name="revanced_ryd_estimated_like_summary_off">Perkiraan jumlah suka tidak ditampilkan</string>
   <string name="revanced_ryd_toast_on_connection_error_title">Tampilkan pesan timbul jika API tidak tersedia</string>
   <string name="revanced_ryd_toast_on_connection_error_summary_on">Pesan timbul tidak ditampilkan jika Return YouTube Dislike tidak tersedia</string>
   <string name="revanced_ryd_toast_on_connection_error_summary_off">Pesan timbul tidak ditampilkan jika Return YouTube Dislike tidak tersedia</string>
-  <string name="revanced_ryd_about">Tentang</string>
   <string name="revanced_ryd_attribution_summary">Data disediakan oleh API Return YouTube Dislike. Tekan di sini untuk mempelajari lebih lanjut</string>
   <!-- Statistic strings are shown in the settings only when ReVanced debug mode is enabled. Typical users will never see these. -->
   <string name="revanced_ryd_statistics_category_title">Statistik API ReturnYoutubeDislike dari perangkat ini</string>
@@ -1043,7 +1074,7 @@ Siap mengirim?"</string>
   <string name="revanced_sb_new_segment_edit_by_hand_title">Ubah waktu segmen secara manual</string>
   <string name="revanced_sb_new_segment_edit_by_hand_content">Apakah Anda ingin menubah waktu awal atau akhir segmen?</string>
   <string name="revanced_sb_new_segment_edit_by_hand_parse_error">Waktu yang diberikan tidak sah</string>
-  <string name="revanced_sb_stats">Statistik</string>
+  <string name="revanced_sb_stats_title">Statistik</string>
   <!-- Shown in the settings preferences, and translations can be any text length. -->
   <string name="revanced_sb_stats_connection_failure">Statistik sementara tidak tersedia (API tidak aktif)</string>
   <string name="revanced_sb_stats_loading">Memuat...</string>
@@ -1072,8 +1103,8 @@ Siap mengirim?"</string>
   <string name="revanced_sb_color_invalid">Kode warna tidak sah</string>
   <string name="revanced_sb_reset_color">Atur ulang warna</string>
   <string name="revanced_sb_reset">Setel ulang</string>
-  <string name="revanced_sb_about">Tentang</string>
-  <string name="revanced_sb_about_api_sum">Data disediakan oleh API SponsorBlock. Tekan di sini untuk mempelajari lebih lanjut dan melihat hasil pengunduhan untuk platform lain</string>
+  <string name="revanced_sb_about_title">Tentang</string>
+  <string name="revanced_sb_about_api_summary">Data disediakan oleh API SponsorBlock. Tekan di sini untuk mempelajari lebih lanjut dan melihat hasil pengunduhan untuk platform lain</string>
   </patch>
   <patch id="layout.formfactor.changeFormFactorPatch">
   <string name="revanced_change_form_factor_title">Faktor bentuk tata letak</string>
@@ -1106,7 +1137,7 @@ Jika kemudian dimatikan, disarankan untuk menghapus data aplikasi untuk mencegah
   <string name="revanced_spoof_app_version_target_entry_2">19.01.34 - Pulihkan ikon navigasi lama</string>
   </patch>
   <patch id="layout.startpage.changeStartPagePatch">
-  <string name="revanced_change_start_page_title">Tetapkan halaman awal</string>
+  <string name="revanced_change_start_page_title">Ubah halaman awal</string>
   <string name="revanced_change_start_page_entry_default">Bawaan</string>
   <string name="revanced_change_start_page_entry_all_subscriptions">Semua langganan</string>
   <string name="revanced_change_start_page_entry_browse">Jelajahi saluran</string>
@@ -1131,6 +1162,11 @@ Jika kemudian dimatikan, disarankan untuk menghapus data aplikasi untuk mencegah
   <string name="revanced_change_start_page_entry_virtual_reality">Realitas Virtual</string>
   <string name="revanced_change_start_page_entry_watch_later">Tonton nanti</string>
   <string name="revanced_change_start_page_entry_your_clips">Klip Anda</string>
+  <string name="revanced_change_start_page_always_title">Selalu ubah halaman awal</string>
+  <string name="revanced_change_start_page_always_summary_on">"Halaman awal selalu diubah
+
+Batasan: Menggunakan tombol kembali pada toolbar mungkin tidak berfungsi"</string>
+  <string name="revanced_change_start_page_always_summary_off">Halaman awal hanya diubah saat aplikasi dimulai</string>
   </patch>
   <patch id="layout.startupshortsreset.disableResumingShortsOnStartupPatch">
   <string name="revanced_disable_resuming_shorts_player_title">Matikan melanjutkan pemutar video Shorts</string>
@@ -1290,6 +1326,9 @@ Mengaktifkan ini dapat membuka kualitas video yang lebih tinggi"</string>
   <patch id="misc.gms.gmsCoreSupportResourcePatch">
   <string name="microg_settings_title">Pengaturan GmsCore</string>
   <string name="microg_settings_summary">Pengaturan untuk GmsCore</string>
+  </patch>
+  <patch id="misc.gms.accountCredentialsInvalidTextPatch">
+  <string name="microg_offline_account_login_error">Jika Anda baru saja mengubah detail login akun Anda, hapus pemasangan dan ulangi memasang MicroG.</string>
   </patch>
   <patch id="misc.links.bypassURLRedirectsPatch">
   <string name="revanced_bypass_url_redirects_title">Abaikan pengalihan URL</string>

@@ -42,6 +42,10 @@ Second \"item\" text"</string>
   <string name="revanced_settings_import_reset">A ReVanced beállítások visszaállnak az alapértelmezettre</string>
   <string name="revanced_settings_import_success">%d beállítás importálva</string>
   <string name="revanced_settings_import_failure_parse">Sikertelen importálás: %s</string>
+  <string name="revanced_settings_search_hint">Beállítások keresése</string>
+  <string name="revanced_settings_search_no_results_title">Nincs találat erre: „%s”</string>
+  <string name="revanced_settings_search_no_results_summary">Próbáljon ki egy másik kulcsszót</string>
+  <string name="revanced_settings_search_remove_message">Eltávolítja a keresési előzményekből?</string>
   <string name="revanced_show_menu_icons_title">ReVanced beállításikonok megjelenítése</string>
   <string name="revanced_show_menu_icons_summary_on">A beállításikonok láthatók</string>
   <string name="revanced_show_menu_icons_summary_off">A beállítások ikonjai nem jelennek meg</string>
@@ -93,6 +97,9 @@ Kattintson a folytatás gombra, és engedélyezze az optimalizálási módosít�
   <string name="revanced_restore_old_settings_menus_title">Régi beállítási menük visszaállítása</string>
   <string name="revanced_restore_old_settings_menus_summary_on">A régi beállítások menüpontok megjelennek</string>
   <string name="revanced_restore_old_settings_menus_summary_off">A régi beállítások menüpontok nem jelennek meg</string>
+  <string name="revanced_settings_search_history_title">Beállítások keresési előzményeinek megjelenítése</string>
+  <string name="revanced_settings_search_history_summary_on">A beállítások keresési előzményei láthatók</string>
+  <string name="revanced_settings_search_history_summary_off">A beállítások keresési előzményei nincsenek megjelenítve</string>
   </patch>
   <patch id="misc.backgroundplayback.backgroundPlaybackPatch">
   <string name="revanced_shorts_disable_background_playback_title">A Shorts háttérben történő lejátszásának letiltása</string>
@@ -153,15 +160,18 @@ Nem fog értesülni semmilyen váratlan eseményről."</string>
   <string name="revanced_hide_notify_me_button_title">\"Értesítést kérek\" gomb elrejtése</string>
   <string name="revanced_hide_notify_me_button_summary_on">A gomb el van rejtve</string>
   <string name="revanced_hide_notify_me_button_summary_off">A gomb megjelenik</string>
-  <!-- 'People also watched' should be translated using the same localized wording YouTube displays. -->
-  <string name="revanced_hide_search_result_recommendations_title">A(z) „Mások is megnézték” felirat elrejtése</string>
-  <string name="revanced_hide_search_result_recommendations_summary_on">A címke rejtett</string>
-  <string name="revanced_hide_search_result_recommendations_summary_off">A címke látható</string>
+  <!-- 'People also watched' and 'You might also like' should be translated using the same localized wording YouTube displays. -->
+  <string name="revanced_hide_search_result_recommendation_labels_title">Videóajánló címkék elrejtése</string>
+  <string name="revanced_hide_search_result_recommendation_labels_summary_on">A „Nézők emellett ezt is megnézték” és a „Neked is tetszhet” címkék rejtve vannak</string>
+  <string name="revanced_hide_search_result_recommendation_labels_summary_off">A „Nézők emellett ezt is megnézték” és a „Neked is tetszhet” címkék láthatók</string>
   <!-- 'Show more' should be translated with the same localized wording that YouTube displays.
                   This button usually appears when searching for a YT creator. -->
   <string name="revanced_hide_show_more_button_title">\'Továbbiak megjelenítése\' gomb elrejtése</string>
   <string name="revanced_hide_show_more_button_summary_on">A gomb el van rejtve</string>
   <string name="revanced_hide_show_more_button_summary_off">A gomb megjelenik</string>
+  <string name="revanced_hide_ticket_shelf_title">Jegyek polcának elrejtése</string>
+  <string name="revanced_hide_ticket_shelf_summary_on">A jegyek polca el van rejtve</string>
+  <string name="revanced_hide_ticket_shelf_summary_off">A jegyek polca látható</string>
   <string name="revanced_hide_timed_reactions_title">Időzített reakciók elrejtése</string>
   <string name="revanced_hide_timed_reactions_summary_on">Az időzített reakciók elrejtve</string>
   <string name="revanced_hide_timed_reactions_summary_off">Az időzített reakciók megjelenítve</string>
@@ -231,6 +241,9 @@ Nem fog értesülni semmilyen váratlan eseményről."</string>
   <string name="revanced_hide_ai_generated_video_summary_section_title">„AI-generált videó összefoglaló” elrejtése</string>
   <string name="revanced_hide_ai_generated_video_summary_section_summary_on">A videó összefoglaló szekció rejtve</string>
   <string name="revanced_hide_ai_generated_video_summary_section_summary_off">A videó összefoglaló szekció látható</string>
+  <string name="revanced_hide_ask_section_title">Kérdezés elrejtése</string>
+  <string name="revanced_hide_ask_section_summary_on">A kérdezés szakasz el van rejtve</string>
+  <string name="revanced_hide_ask_section_summary_off">A kérdezés szakasz megjelenik</string>
   <string name="revanced_hide_attributes_section_title">Attribútumok elrejtése</string>
   <string name="revanced_hide_attributes_section_summary_on">A kiemelt helyek, játékok, zene és említett személyek szakaszai rejtettek</string>
   <string name="revanced_hide_attributes_section_summary_off">A kiemelt helyek, játékok, zene és említett személyek szakaszai láthatók</string>
@@ -459,29 +472,38 @@ A hangerő a képernyő jobb oldalán függőlegesen húzva állítható be"</st
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_title">Auto fényerő gesztus engedélyezése</string>
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_on">A fényerő kézmozdulat legalacsonyabb értékig csúsztatása engedélyezi az auto fényerőt</string>
   <string name="revanced_swipe_lowest_value_enable_auto_brightness_summary_off">A legalacsonyabb értékig csúsztatás nem engedélyezi az auto fényerőt</string>
+  <string name="revanced_swipe_lowest_value_enable_auto_brightness_overlay_text">Automatikus</string>
   <string name="revanced_swipe_overlay_timeout_title">Csúsztatási átfedés időkorlátja</string>
   <string name="revanced_swipe_overlay_timeout_summary">Az átfedés láthatóságának időtartama ezredmásodpercben</string>
   <string name="revanced_swipe_overlay_background_opacity_title">Az áthúzás átfedésének átlátszósága</string>
   <string name="revanced_swipe_overlay_background_opacity_summary">Az átlátszóság értéke 0-100 között legyen</string>
   <string name="revanced_swipe_overlay_background_opacity_invalid_toast">A csúsztatás átlátszóságának 0 és 100 között kell lennie</string>
+  <string name="revanced_swipe_overlay_progress_color_title">Áthúzás fedvény folyamatjelző sáv színe</string>
+  <string name="revanced_swipe_overlay_progress_color_summary">A hangerő és fényerő szabályozók folyamatjelző sávjának színe</string>
+  <string name="revanced_swipe_overlay_progress_color_invalid_toast">Érvénytelen folyamatjelző sávszín</string>
+  <string name="revanced_swipe_text_overlay_size_title">Áthúzás fedvény szövegmérete</string>
+  <string name="revanced_swipe_text_overlay_size_summary">Az áthúzás fedvény szövegmérete 1-30 között</string>
+  <string name="revanced_swipe_text_overlay_size_invalid_toast">A szövegméretnek 1-30 között kell lennie</string>
   <string name="revanced_swipe_threshold_title">A csúsztatás küszöbértéke</string>
   <string name="revanced_swipe_threshold_summary">A csúsztatáshoz szükséges küszöbérték</string>
   <string name="revanced_swipe_volume_sensitivity_title">Hangerő-görgetés érzékenysége</string>
   <string name="revanced_swipe_volume_sensitivity_summary">Mennyit változzon a hangerő görgetésenként</string>
-  <string name="revanced_swipe_show_circular_overlay_title">Kör alakú fedvény megjelenítése</string>
-  <string name="revanced_swipe_show_circular_overlay_summary_on">Kör alakú fedvény megjelenik</string>
-  <string name="revanced_swipe_show_circular_overlay_summary_off">Vízszintes fedvény megjelenik</string>
-  <string name="revanced_swipe_overlay_minimal_style_title">Minimál stílus engedélyezése</string>
-  <string name="revanced_swipe_overlay_minimal_style_summary_on">A minimál fedési stílus engedélyezve van</string>
-  <string name="revanced_swipe_overlay_minimal_style_summary_off">A minimalista fedvény stílus le van tiltva</string>
+  <string name="revanced_swipe_overlay_style_title">Áthúzásos fedvény stílusa</string>
+  <string name="revanced_swipe_overlay_style_entry_1">Vízszintes fedvény</string>
+  <string name="revanced_swipe_overlay_style_entry_2">Vízszintes fedvény (minimalista – felül)</string>
+  <string name="revanced_swipe_overlay_style_entry_3">Vízszintes fedvény (minimalista – középen)</string>
+  <string name="revanced_swipe_overlay_style_entry_4">Körkörös fedvény</string>
+  <string name="revanced_swipe_overlay_style_entry_5">Körkörös fedvény (minimalista)</string>
+  <string name="revanced_swipe_overlay_style_entry_6">Függőleges fedvény</string>
+  <string name="revanced_swipe_overlay_style_entry_7">Függőleges fedvény (minimalista)</string>
   <string name="revanced_swipe_change_video_title">Engedélyezze az ujjbegyújtással történő videóváltást</string>
   <string name="revanced_swipe_change_video_summary_on">Teljes képernyős módban történő ujjbegyújtás megváltoztatja a következő/előző videóra</string>
   <string name="revanced_swipe_change_video_summary_off">Teljes képernyős módban történő ujjbegyújtás nem változtatja meg a következő/előző videóra</string>
   </patch>
   <patch id="layout.autocaptions.autoCaptionsPatch">
-  <string name="revanced_auto_captions_title">Automatikus feliratok letiltása</string>
-  <string name="revanced_auto_captions_summary_on">Az automatikus feliratok le vannak tiltva</string>
-  <string name="revanced_auto_captions_summary_off">Az automatikus feliratok engedélyezve vannak</string>
+  <string name="revanced_disable_auto_captions_title">Automatikus feliratok letiltása</string>
+  <string name="revanced_disable_auto_captions_summary_on">Az automatikus feliratok ki vannak kapcsolva</string>
+  <string name="revanced_disable_auto_captions_summary_off">Az automatikus feliratok be vannak kapcsolva</string>
   </patch>
   <patch id="layout.buttons.action.hideButtonsPatch">
   <string name="revanced_hide_buttons_screen_title">Művelet gombok</string>
@@ -513,6 +535,11 @@ A hangerő a képernyő jobb oldalán függőlegesen húzva állítható be"</st
   <string name="revanced_hide_thanks_button_title">Köszönet elrejtése</string>
   <string name="revanced_hide_thanks_button_summary_on">A köszönet gomb el van rejtve</string>
   <string name="revanced_hide_thanks_button_summary_off">A köszönet gomb látható</string>
+  <!-- 'Ask' should be translated with the same localized wording that YouTube displays.
+                 Button only shows if the user ip is from specific region such as the USA or EU. -->
+  <string name="revanced_hide_ask_button_title">Ask elrejtése</string>
+  <string name="revanced_hide_ask_button_summary_on">Az Ask gomb el van rejtve</string>
+  <string name="revanced_hide_ask_button_summary_off">Az Ask gomb látható</string>
   <!-- 'Clip' should be translated with the same localized wording that YouTube displays. -->
   <string name="revanced_hide_clip_button_title">Vágás gomb elrejtése</string>
   <string name="revanced_hide_clip_button_summary_on">A klip gomb el van rejtve</string>
@@ -780,6 +807,11 @@ Az automatikus lejátszás a YouTube beállításaiban módosítható:
 Beállítások → Lejátszás → Következő videó automatikus lejátszása"</string>
   <string name="revanced_end_screen_suggested_video_summary_off">A befejező képernyőn lévő javasolt videó látható</string>
   </patch>
+  <patch id="layout.hide.relatedvideooverlay.hideRelatedVideoOverlayPatch">
+  <string name="revanced_hide_related_video_overlay_title">Kapcsolódó videó fedőréteg elrejtése teljes képernyőn</string>
+  <string name="revanced_hide_related_video_overlay_summary_on">A kapcsolódó videó fedőréteg rejtve van</string>
+  <string name="revanced_hide_related_video_overlay_summary_off">A kapcsolódó videó fedőréteg látható</string>
+  </patch>
   <patch id="layout.hide.time.hideTimestampPatch">
   <string name="revanced_hide_timestamp_title">Videó időbélyegzőjének elrejtése</string>
   <string name="revanced_hide_timestamp_summary_on">Az időbélyegző elrejtve</string>
@@ -817,10 +849,10 @@ Beállítások → Lejátszás → Következő videó automatikus lejátszása"<
   <string name="revanced_ryd_failure_ryd_enabled_while_playing_video_then_user_voted">Töltse újra a videót a Return YouTube Dislike-hoz</string>
   <!-- Video likes have been set to hidden by the video uploader. -->
   <string name="revanced_ryd_video_likes_hidden_by_video_owner">A tulajdonos elrejtette</string>
-  <string name="revanced_ryd_enable_summary_on">A nem tetszések megjelennek</string>
-  <string name="revanced_ryd_enable_summary_off">A nem tetszések nem jelennek meg</string>
+  <string name="revanced_ryd_enabled_summary_on">A nem tetszések megjelennek</string>
+  <string name="revanced_ryd_enabled_summary_off">A nem tetszések nem jelennek meg</string>
   <string name="revanced_ryd_shorts_title">A nem tetszések megjelenítése a Shorts videóknál</string>
-  <string name="revanced_ryd_shorts_summary_on_disclaimer">"A nem tetszések a Shorts-on láthatók
+  <string name="revanced_ryd_shorts_summary_on">"A nem tetszések a Shorts-on láthatók
 
 Korlátozás: A nem tetszések inkognitómódban nem jelenhetnek meg"</string>
   <string name="revanced_ryd_shorts_summary_off">A nem tetszések a Shorts-on nem láthatók</string>
@@ -832,12 +864,11 @@ Korlátozás: A nem tetszések inkognitómódban nem jelenhetnek meg"</string>
   <string name="revanced_ryd_compact_layout_summary_on">A tetszik gomb minimális szélességre formázva</string>
   <string name="revanced_ryd_compact_layout_summary_off">A tetszik gomb a legjobb megjelenésre formázva</string>
   <string name="revanced_ryd_estimated_like_title">Becsült kedvelések mutatása</string>
-  <string name="revanced_ryd_estimated_like_summary_on">A becsült kedvelések láthatók</string>
-  <string name="revanced_ryd_estimated_like_summary_off">A becsült kedvelések rejtve vannak</string>
+  <string name="revanced_ryd_estimated_like_summary_on">A letiltott kedvelésekkel rendelkező videók a becsült kedvelések számát mutatják</string>
+  <string name="revanced_ryd_estimated_like_summary_off">A becsült kedvelések nem jelennek meg</string>
   <string name="revanced_ryd_toast_on_connection_error_title">Üzenet megjelenítése, ha az API nem elérhető</string>
   <string name="revanced_ryd_toast_on_connection_error_summary_on">Üzenet megjelenítése, ha a Return YouTube Dislike nem elérhető</string>
   <string name="revanced_ryd_toast_on_connection_error_summary_off">Nem jelenik meg üzenet, ha a Return YouTube Dislike nem elérhető</string>
-  <string name="revanced_ryd_about">Rólunk</string>
   <string name="revanced_ryd_attribution_summary">Az adatokat a Return YouTube Dislike API biztosítja. További információért koppintson ide</string>
   <!-- Statistic strings are shown in the settings only when ReVanced debug mode is enabled. Typical users will never see these. -->
   <string name="revanced_ryd_statistics_category_title">ReturnYouTubeDislike API statisztika az eszközön</string>
@@ -1043,7 +1074,7 @@ Készen állsz a beküldésre?"</string>
   <string name="revanced_sb_new_segment_edit_by_hand_title">A szakasz időzítésének kézi beállítása</string>
   <string name="revanced_sb_new_segment_edit_by_hand_content">Akarja szerkeszteni a rész kezdetének vagy végének időzítését?</string>
   <string name="revanced_sb_new_segment_edit_by_hand_parse_error">Érvénytelen idő van megadva</string>
-  <string name="revanced_sb_stats">Statisztikák</string>
+  <string name="revanced_sb_stats_title">Statisztikák</string>
   <!-- Shown in the settings preferences, and translations can be any text length. -->
   <string name="revanced_sb_stats_connection_failure">A statisztikák átmenetileg nem érhetők el (az API nem működik)</string>
   <string name="revanced_sb_stats_loading">Betöltés...</string>
@@ -1072,8 +1103,8 @@ Készen állsz a beküldésre?"</string>
   <string name="revanced_sb_color_invalid">Érvénytelen színkód</string>
   <string name="revanced_sb_reset_color">Színek visszaállítása</string>
   <string name="revanced_sb_reset">Visszaállítás</string>
-  <string name="revanced_sb_about">Rólunk</string>
-  <string name="revanced_sb_about_api_sum">Az adatokat a SponsorBlock API biztosítja. Koppintson ide, ha többet szeretne megtudni és megtekintené a letöltéseket más platformokra</string>
+  <string name="revanced_sb_about_title">Rólunk</string>
+  <string name="revanced_sb_about_api_summary">Az adatokat a SponsorBlock API biztosítja. Koppintson ide, ha többet szeretne megtudni és megtekintené a letöltéseket más platformokra</string>
   </patch>
   <patch id="layout.formfactor.changeFormFactorPatch">
   <string name="revanced_change_form_factor_title">Elrendezési űrlap faktor</string>
@@ -1106,7 +1137,7 @@ Ha később kikapcsolja, akkor ajánlott az alkalmazás adatait törölni, hogy 
   <string name="revanced_spoof_app_version_target_entry_2">19.01.34 - Állítsa vissza a régi navigációs ikonokat</string>
   </patch>
   <patch id="layout.startpage.changeStartPagePatch">
-  <string name="revanced_change_start_page_title">Kezdőlap beállítása</string>
+  <string name="revanced_change_start_page_title">Kezdőlap módosítása</string>
   <string name="revanced_change_start_page_entry_default">Alapértelmezett</string>
   <string name="revanced_change_start_page_entry_all_subscriptions">Összes feliratkozás</string>
   <string name="revanced_change_start_page_entry_browse">Csatornák böngészése</string>
@@ -1131,6 +1162,9 @@ Ha később kikapcsolja, akkor ajánlott az alkalmazás adatait törölni, hogy 
   <string name="revanced_change_start_page_entry_virtual_reality">Virtuális valóság</string>
   <string name="revanced_change_start_page_entry_watch_later">Megnézem később</string>
   <string name="revanced_change_start_page_entry_your_clips">A saját klipjeid</string>
+  <string name="revanced_change_start_page_always_title">Mindig módosítsa a kezdőoldalt</string>
+  <string name="revanced_change_start_page_always_summary_on">"A kezdőlap mindig módosítva van\n\nKorlátozás: A visszalépés gomb a eszköztáron nem biztos, hogy működik"</string>
+  <string name="revanced_change_start_page_always_summary_off">A kezdőoldal csak az alkalmazás indításakor változik meg</string>
   </patch>
   <patch id="layout.startupshortsreset.disableResumingShortsOnStartupPatch">
   <string name="revanced_disable_resuming_shorts_player_title">A Shorts lejátszás folytatásának kikapcsolása</string>
@@ -1290,6 +1324,9 @@ Ez a beállítás lehetővé teszi a magasabb videóminőségek feloldását"</s
   <patch id="misc.gms.gmsCoreSupportResourcePatch">
   <string name="microg_settings_title">GmsCore beállítások</string>
   <string name="microg_settings_summary">A GmsCore beállításai</string>
+  </patch>
+  <patch id="misc.gms.accountCredentialsInvalidTextPatch">
+  <string name="microg_offline_account_login_error">Ha nemrég módosította a fiókja bejelentkezési adatait, távolítsa el, majd telepítse újra a MicroG-t.</string>
   </patch>
   <patch id="misc.links.bypassURLRedirectsPatch">
   <string name="revanced_bypass_url_redirects_title">URL átirányítások kikerülése</string>
